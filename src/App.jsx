@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useReducer } from "react";
-import Card from "./assets/Components/card";
+import Card from "./assets/Components/Card";
 
 
 
