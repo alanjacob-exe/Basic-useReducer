@@ -1,14 +1,18 @@
 import { useState } from "react";
 import { useReducer } from "react";
 import Card from "./assets/Components/Card";
-import { ADDED_VALUE, EDITED_CARD_VALUE, RESET_TODO } from "./config/ReducerConstants";
+// import { ADDED_VALUE, EDITED_CARD_VALUE, RESET_TODO } from "./config/ReducerConstants";
 
-
+const ReducerConstants = {
+  addedValue: "added",
+  editedCardValue: "edited",
+  resetTodo: "reset"
+}
 
 
 function todoReducer(tasks, action) {
   switch (action.type) {
-    case ADDED_VALUE: {
+    case ReducerConstants.addedValue: {
       return {
         todo: [
           ...tasks.todo,
@@ -19,7 +23,7 @@ function todoReducer(tasks, action) {
         ],
       };
     }
-    case EDITED_CARD_VALUE: {
+    case ReducerConstants.editedCardValue: {
       const updatedTasks = tasks.todo.map((task) => {
         if (task.index === action.payload.index) {
           return {
@@ -35,7 +39,7 @@ function todoReducer(tasks, action) {
       };
 
     }
-    case RESET_TODO: {
+    case ReducerConstants.resetTodo: {
       return {
         todo: []
       };
@@ -55,7 +59,7 @@ function App() {
   const [inputvalue, setinputvalue] = useState("");
 
   const handleTextChange = (index, newText) => {
-    dispatch({ type: EDITED_CARD_VALUE, payload: { index, newText } })
+    dispatch({ type: ReducerConstants.editedCardValue, payload: { index, newText } })
   }
   return (
     <main className="w-screen h-screen text-white bg-black flex overdlow-hidden">
@@ -73,7 +77,7 @@ function App() {
           </div>
           <div className="w-full my-auto flex flex-row-reverse mx-2"><button className="ml-2 w-20 h-10 focus:ring-2 focus:ring-blue-500 bg-purple-900 rounded-md transition duration-200 ease-in-out active:translate-y-1" onClick={() => {
             if (!(inputvalue.length == 0)) {
-              { dispatch({ type: ADDED_VALUE, payload: { text: inputvalue } }) }
+              { dispatch({ type: ReducerConstants.addedValue, payload: { text: inputvalue } }) }
             }
             else {
               alert("Nothing to Insert")
@@ -83,7 +87,7 @@ function App() {
             Insert
           </button>
             <button className=" w-20 h-10 focus:ring-2 focus:ring-blue-500 bg-red-500 rounded-md transition duration-200 ease-in-out active:translate-y-1" onClick={() => {
-              dispatch({ type: RESET_TODO })
+              dispatch({ type: ReducerConstants.resetTodo })
             }} >
               Reset
             </button></div>
