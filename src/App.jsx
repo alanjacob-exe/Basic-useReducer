@@ -8,7 +8,7 @@ import { ADDED_VALUE, EDITED_CARD_VALUE, RESET_TODO } from "./config/ReducerCons
 
 function todoReducer(tasks, action) {
   switch (action.type) {
-    case "added": {
+    case ADDED_VALUE: {
       return {
         todo: [
           ...tasks.todo,
@@ -19,7 +19,7 @@ function todoReducer(tasks, action) {
         ],
       };
     }
-    case "edited": {
+    case EDITED_CARD_VALUE: {
       const updatedTasks = tasks.todo.map((task) => {
         if (task.index === action.payload.index) {
           return {
@@ -35,7 +35,7 @@ function todoReducer(tasks, action) {
       };
 
     }
-    case "reset": {
+    case RESET_TODO: {
       return {
         todo: []
       };
@@ -95,13 +95,6 @@ function App() {
               // console.log("Value is:" + e.target.value)
             }} />
           ))}
-
-          {/* {tasks.map((eachTask, index) => (
-            <Card key={index} value={eachTask.value} />
-          ))} */}
-          {/* {dummyData.map((eachCardData, index) => (
-            <Card key={index} value={eachCardData.value} />
-          ))} */}
         </div>
       </div>
     </main>
