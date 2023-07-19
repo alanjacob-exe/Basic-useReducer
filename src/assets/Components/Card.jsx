@@ -14,7 +14,7 @@ export default function Card({ value, onChange }) {
         <button className="mx-2 my-auto w-20 h-10 focus:ring-2 focus:ring-blue-500 bg-purple-900 rounded-md transition duration-200 ease-in-out active:translate-y-1" onClick={() => setisEditing(true)}>
           Edit
         </button>
-        
+
       </div>
     </main >
   );

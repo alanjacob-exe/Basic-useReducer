@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useReducer } from "react";
 import Card from "./assets/Components/Card";
+import { ADDED_VALUE, EDITED_CARD_VALUE, RESET_TODO } from "./config/ReducerConstants";
 
 
 
@@ -13,17 +14,17 @@ function todoReducer(tasks, action) {
           ...tasks.todo,
           {
             index: tasks.todo.length,
-            content: action.text,
+            content: action.payload.text,
           },
         ],
       };
     }
     case "edited": {
       const updatedTasks = tasks.todo.map((task) => {
-        if (task.index === action.index) {
+        if (task.index === action.payload.index) {
           return {
             ...task,
-            content: action.newText,
+            content: action.payload.newText,
           };
         }
         return task;
@@ -54,7 +55,7 @@ function App() {
   const [inputvalue, setinputvalue] = useState("");
 
   const handleTextChange = (index, newText) => {
-    dispatch({ type: 'edited', index, newText })
+    dispatch({ type: EDITED_CARD_VALUE, payload: { index, newText } })
   }
   return (
     <main className="w-screen h-screen text-white bg-black flex overdlow-hidden">
@@ -72,7 +73,7 @@ function App() {
           </div>
           <div className="w-full my-auto flex flex-row-reverse mx-2"><button className="ml-2 w-20 h-10 focus:ring-2 focus:ring-blue-500 bg-purple-900 rounded-md transition duration-200 ease-in-out active:translate-y-1" onClick={() => {
             if (!(inputvalue.length == 0)) {
-              { dispatch({ type: 'added', text: inputvalue }) }
+              { dispatch({ type: ADDED_VALUE, payload: { text: inputvalue } }) }
             }
             else {
               alert("Nothing to Insert")
@@ -82,7 +83,7 @@ function App() {
             Insert
           </button>
             <button className=" w-20 h-10 focus:ring-2 focus:ring-blue-500 bg-red-500 rounded-md transition duration-200 ease-in-out active:translate-y-1" onClick={() => {
-              dispatch({ type: 'reset' })
+              dispatch({ type: RESET_TODO })
             }} >
               Reset
             </button></div>
